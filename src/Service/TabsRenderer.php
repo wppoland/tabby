@@ -14,10 +14,8 @@ defined('ABSPATH') || exit;
  * Injects Tabby's custom tabs into the single product page via the
  * `woocommerce_product_tabs` filter.
  *
- * Tabs are resolved per product from {@see TabRepository} (enabled global tabs
- * minus per-product hides, then per-product tabs). Priorities are spaced so the
- * configured ordering ('after' / 'before' the native tabs) is respected without
- * clobbering other plugins' tabs. Empty/disabled states render nothing.
+ * Tabs are the enabled global tabs from {@see TabRepository}, appended after the
+ * native WooCommerce tabs. Empty/disabled states render nothing.
  */
 final class TabsRenderer implements HasHooks
 {
@@ -65,42 +63,18 @@ final class TabsRenderer implements HasHooks
      */
     public function addTabs(array $tabs): array
     {
-        if (! $this->tabs->isEnabled()) {
-            return $tabs;
-        }
-
-        $product = $this->currentProduct();
-        if (null === $product) {
-            return $tabs;
-        }
-
-        $resolved = $this->tabs->resolveForProduct($product->get_id());
+        $resolved = $this->tabs->resolveTabs();
         if ([] === $resolved) {
             return $tabs;
         }
 
-        /**
-         * Filter the resolved tabs before they are rendered. Add-ons and
-         * themes can add, remove or reorder Tab objects here.
-         *
-         * @param array<int, Tab> $resolved Resolved Tab objects.
-         * @param \WC_Product     $product  The current product.
-         */
-        $resolved = apply_filters('tabby/resolved_tabs', $resolved, $product);
-
         $this->current = [];
 
-        // Base priority controls placement relative to native WC tabs (which use
-        // 10/20/30). 'before' slots Tabby ahead of them; 'after' trails them.
-        $priority = 'before' === $this->tabs->ordering() ? 5 : 100;
-        $step     = 1;
+        // Native WooCommerce tabs use priorities 10/20/30, so 100+ trails them.
+        $priority = 100;
         $seen     = [];
 
         foreach ($resolved as $tab) {
-            if (! $tab instanceof Tab) {
-                continue;
-            }
-
             // Guarantee a unique array key even if two tabs share an id.
             $key = 'tabby_' . $tab->id;
             $n   = 1;
@@ -117,7 +91,7 @@ final class TabsRenderer implements HasHooks
                 'callback' => [$this, 'renderPanel'],
             ];
 
-            $priority += $step;
+            ++$priority;
         }
 
         return $tabs;
@@ -151,29 +125,5 @@ final class TabsRenderer implements HasHooks
             '<div class="tabby-tab__content">%s</div>',
             wp_kses_post(wpautop($resolved->content)),
         );
-    }
-
-    /**
-     * The product whose tabs are being rendered, or null when not on a product.
-     */
-    private function currentProduct(): ?\WC_Product
-    {
-        global $product;
-
-        if ($product instanceof \WC_Product) {
-            return $product;
-        }
-
-        if (function_exists('wc_get_product') && function_exists('get_the_ID')) {
-            $id = get_the_ID();
-            if (is_int($id) && $id > 0) {
-                $maybe = wc_get_product($id);
-                if ($maybe instanceof \WC_Product) {
-                    return $maybe;
-                }
-            }
-        }
-
-        return null;
     }
 }

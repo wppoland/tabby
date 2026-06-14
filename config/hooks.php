@@ -12,7 +12,6 @@
 
 declare(strict_types=1);
 
-use Tabby\Admin\ProductTabsMetaBox;
 use Tabby\Admin\Settings;
 use Tabby\Service\TabsRenderer;
 
@@ -20,5 +19,5 @@ defined('ABSPATH') || exit;
 
 return [
     TabsRenderer::class,
-    ...(is_admin() ? [Settings::class, ProductTabsMetaBox::class] : []),
+    ...(is_admin() ? [Settings::class] : []),
 ];

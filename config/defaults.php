@@ -3,9 +3,7 @@
  * Default settings, stored under the `tabby_settings` option.
  *
  * `global_tabs` is the list of reusable tabs the merchant defines on the Tabby
- * settings screen; each renders on every single product page (unless hidden by
- * a per-product override). `ordering` controls where Tabby's custom tabs sit
- * relative to the native WooCommerce tabs.
+ * settings screen; each renders on every single product page.
  *
  * @package Tabby
  *
@@ -18,11 +16,6 @@ defined('ABSPATH') || exit;
 
 return [
     'enabled' => true,
-
-    // Where Tabby's custom tabs sit relative to WooCommerce's native tabs:
-    // 'after' (Description, Additional information, Reviews, then custom) or
-    // 'before' (custom tabs first).
-    'ordering' => 'after',
 
     /*
      * Reusable global tabs. Each entry:

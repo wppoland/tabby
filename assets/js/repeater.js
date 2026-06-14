@@ -1,12 +1,9 @@
 /**
- * Tabby - admin enhancements for the settings screen and the product metabox.
+ * Tabby - repeater for the settings screen.
  *
- * 1. Repeater: clone a <template> row on "Add", renumber field name indexes, and
- *    remove rows. Works without any framework or jQuery. Fully keyboard usable.
- * 2. Tooltips: progressive enhancement for the "?" help affordances (the text is
- *    already exposed via aria-describedby + title with JS disabled).
- *
- * Enqueued deferred / in the footer. No dependencies.
+ * Clones a <template> row on "Add", renumbers field name indexes, and removes
+ * rows. Works without any framework or jQuery. Fully keyboard usable. Enqueued
+ * deferred / in the footer. No dependencies.
  */
 (function () {
     'use strict';
@@ -18,8 +15,6 @@
             document.addEventListener('DOMContentLoaded', fn);
         }
     }
-
-    // --- Repeater ---------------------------------------------------------
 
     function reindex(rowsContainer) {
         var rows = rowsContainer.querySelectorAll('[data-tabby-row]');
@@ -89,43 +84,8 @@
         reindex(rowsContainer);
     }
 
-    // --- Tooltips ---------------------------------------------------------
-
-    function initTooltip(trigger) {
-        var tipId = trigger.getAttribute('data-tabby-tip');
-        if (!tipId) {
-            return;
-        }
-        var tip = document.getElementById(tipId);
-        if (!tip) {
-            return;
-        }
-
-        // Remove the native title to avoid a duplicate delayed tooltip.
-        trigger.removeAttribute('title');
-
-        var show = function () { tip.hidden = false; };
-        var hide = function () { tip.hidden = true; };
-
-        hide();
-
-        trigger.addEventListener('mouseenter', show);
-        trigger.addEventListener('mouseleave', hide);
-        trigger.addEventListener('focus', show);
-        trigger.addEventListener('blur', hide);
-        trigger.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape') {
-                hide();
-                trigger.blur();
-            }
-        });
-    }
-
     ready(function () {
         var repeaters = document.querySelectorAll('[data-tabby-repeater]');
         Array.prototype.forEach.call(repeaters, initRepeater);
-
-        var tips = document.querySelectorAll('.tabby-help');
-        Array.prototype.forEach.call(tips, initTooltip);
     });
 })();

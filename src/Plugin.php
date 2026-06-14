@@ -60,12 +60,5 @@ final class Plugin
                 $service->registerHooks();
             }
         }
-
-        /**
-         * Fires after Tabby has fully booted. Add-ons can hook here.
-         *
-         * @param Plugin $plugin The booted plugin instance.
-         */
-        do_action('tabby/booted', $this);
     }
 }

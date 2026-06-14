@@ -12,10 +12,9 @@ defined('ABSPATH') || exit;
 /**
  * Tabby settings screen, registered as a WooCommerce submenu.
  *
- * Manages the reusable global tabs (title + safe HTML content + enabled) and the
- * default ordering relative to the native WooCommerce tabs. Stored in the
- * `tabby_settings` option. All output escaped; all input sanitised on save;
- * the save capability is aligned to manage_woocommerce.
+ * Manages the reusable global tabs (title + safe HTML content + enabled) stored
+ * in the `tabby_settings` option. All output escaped; all input sanitised on
+ * save; the save capability is aligned to manage_woocommerce.
  */
 final class Settings implements HasHooks
 {
@@ -43,8 +42,8 @@ final class Settings implements HasHooks
         );
 
         wp_enqueue_script(
-            'tabby-metabox',
-            \Tabby\Plugin::instance()->url('assets/js/metabox.js'),
+            'tabby-repeater',
+            \Tabby\Plugin::instance()->url('assets/js/repeater.js'),
             [],
             \Tabby\VERSION,
             ['in_footer' => true, 'strategy' => 'defer'],
@@ -88,7 +87,6 @@ final class Settings implements HasHooks
 
         $repo       = new TabRepository();
         $settings   = $repo->settings();
-        $ordering   = $repo->ordering();
         $globalTabs = $repo->globalTabs();
         ?>
         <div class="wrap tabby-admin">
@@ -102,7 +100,7 @@ final class Settings implements HasHooks
                 </span>
                 <div class="tabby-admin__intro-text">
                     <h2><?php esc_html_e('Reusable tabs for every product page', 'tabby'); ?></h2>
-                    <p><?php esc_html_e('Define global tabs once and they appear on all single product pages. Need a one-off tab? Add it from the “Custom Product Tabs” box on any product. Basic HTML is allowed in tab content.', 'tabby'); ?></p>
+                    <p><?php esc_html_e('Define tabs once and they appear on all single product pages, after the native WooCommerce tabs. Basic HTML is allowed in tab content.', 'tabby'); ?></p>
                 </div>
             </div>
 
@@ -114,10 +112,7 @@ final class Settings implements HasHooks
                     <table class="form-table" role="presentation">
                         <tbody>
                             <tr>
-                                <th scope="row">
-                                    <?php esc_html_e('Enable Tabby', 'tabby'); ?>
-                                    <?php $this->helpTip('enabled', __('Master switch. When off, no custom tabs render anywhere and product pages are completely unaffected.', 'tabby')); ?>
-                                </th>
+                                <th scope="row"><?php esc_html_e('Enable Tabby', 'tabby'); ?></th>
                                 <td>
                                     <label for="tabby_enabled">
                                         <input
@@ -125,24 +120,10 @@ final class Settings implements HasHooks
                                             id="tabby_enabled"
                                             name="<?php echo esc_attr(self::OPTION); ?>[enabled]"
                                             value="1"
-                                            aria-describedby="tabby-tip-enabled"
                                             <?php checked((bool) ($settings['enabled'] ?? false), true); ?>
                                         />
                                         <?php esc_html_e('Render custom tabs on single product pages.', 'tabby'); ?>
                                     </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <label for="tabby_ordering"><?php esc_html_e('Tab placement', 'tabby'); ?></label>
-                                    <?php $this->helpTip('ordering', __('“After” keeps WooCommerce’s Description, Additional information and Reviews first, then your custom tabs. “Before” puts your custom tabs ahead of them.', 'tabby')); ?>
-                                </th>
-                                <td>
-                                    <select id="tabby_ordering" name="<?php echo esc_attr(self::OPTION); ?>[ordering]" aria-describedby="tabby-tip-ordering">
-                                        <option value="after" <?php selected($ordering, 'after'); ?>><?php esc_html_e('After the native WooCommerce tabs', 'tabby'); ?></option>
-                                        <option value="before" <?php selected($ordering, 'before'); ?>><?php esc_html_e('Before the native WooCommerce tabs', 'tabby'); ?></option>
-                                    </select>
-                                    <p class="description"><?php esc_html_e('Where your custom tabs sit relative to Description / Additional information / Reviews.', 'tabby'); ?></p>
                                 </td>
                             </tr>
                         </tbody>
@@ -150,8 +131,8 @@ final class Settings implements HasHooks
                 </div>
 
                 <div class="tabby-admin__section">
-                    <h2><?php esc_html_e('Global tabs', 'tabby'); ?></h2>
-                    <p class="tabby-admin__section-intro"><?php esc_html_e('These tabs appear on every product (unless hidden on an individual product). Drag is not required — they render in the order listed here.', 'tabby'); ?></p>
+                    <h2><?php esc_html_e('Tabs', 'tabby'); ?></h2>
+                    <p class="tabby-admin__section-intro"><?php esc_html_e('These tabs appear on every product, in the order listed here.', 'tabby'); ?></p>
 
                     <div class="tabby-repeater" data-tabby-repeater>
                         <div class="tabby-repeater__rows" data-tabby-rows>
@@ -172,7 +153,7 @@ final class Settings implements HasHooks
 
                         <p>
                             <button type="button" class="button button-secondary" data-tabby-add>
-                                <?php esc_html_e('Add global tab', 'tabby'); ?>
+                                <?php esc_html_e('Add tab', 'tabby'); ?>
                             </button>
                         </p>
                     </div>
@@ -232,25 +213,6 @@ final class Settings implements HasHooks
     }
 
     /**
-     * Accessible "?" help affordance with a progressively-enhanced tooltip.
-     */
-    private function helpTip(string $key, string $text): void
-    {
-        $tipId = 'tabby-tip-' . $key;
-        ?>
-        <button
-            type="button"
-            class="tabby-help"
-            data-tabby-tip="<?php echo esc_attr($tipId); ?>"
-            aria-label="<?php esc_attr_e('More information', 'tabby'); ?>"
-            aria-describedby="<?php echo esc_attr($tipId); ?>"
-            title="<?php echo esc_attr($text); ?>"
-        >?</button>
-        <span class="tabby-help-tip" id="<?php echo esc_attr($tipId); ?>" role="tooltip" hidden><?php echo esc_html($text); ?></span>
-        <?php
-    }
-
-    /**
      * Sanitise submitted settings before save.
      *
      * @param mixed $raw
@@ -264,11 +226,6 @@ final class Settings implements HasHooks
 
         /** @var array<string, mixed> $defaults */
         $defaults = require TABBY_DIR . 'config/defaults.php';
-
-        $ordering = isset($raw['ordering']) ? sanitize_key((string) $raw['ordering']) : 'after';
-        if (! in_array($ordering, ['after', 'before'], true)) {
-            $ordering = 'after';
-        }
 
         $globalTabs = [];
         if (isset($raw['global_tabs']) && is_array($raw['global_tabs'])) {
@@ -291,13 +248,10 @@ final class Settings implements HasHooks
             }
         }
 
-        $sanitized = array_merge($defaults, [
+        return array_merge($defaults, [
             'enabled'     => ! empty($raw['enabled']),
-            'ordering'    => $ordering,
             'global_tabs' => $globalTabs,
         ]);
-
-        return (array) apply_filters('tabby/sanitize_settings', $sanitized, $raw);
     }
 
     /**
