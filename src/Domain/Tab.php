@@ -11,7 +11,7 @@ defined('ABSPATH') || exit;
  *
  * `content` holds limited, pre-sanitised HTML (wp_kses_post). `source` records
  * whether the tab came from the global settings or a per-product metabox, which
- * lets the renderer and PRO companions reason about provenance.
+ * lets the renderer reason about provenance.
  */
 final class Tab
 {

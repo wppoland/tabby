@@ -62,7 +62,7 @@ final class Plugin
         }
 
         /**
-         * Fires after Tabby has fully booted. PRO companions hook here.
+         * Fires after Tabby has fully booted. Add-ons can hook here.
          *
          * @param Plugin $plugin The booted plugin instance.
          */

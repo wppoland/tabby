@@ -80,7 +80,7 @@ final class TabsRenderer implements HasHooks
         }
 
         /**
-         * Filter the resolved tabs before they are rendered. PRO companions and
+         * Filter the resolved tabs before they are rendered. Add-ons and
          * themes can add, remove or reorder Tab objects here.
          *
          * @param array<int, Tab> $resolved Resolved Tab objects.

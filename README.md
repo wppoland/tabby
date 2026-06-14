@@ -1,52 +1,33 @@
-# plugin-template
+# Tabby - Custom Product Tabs for WooCommerce
 
-GitHub **template repo** for a WPPoland storefront FREE plugin. A thin adapter over
-`wppoland/storefront-kit`, pre-wired to the reusable CI/release workflows. Spin up a new plugin in
-minutes instead of rebuilding CI each time.
+Tabby lets you add your own tabs to WooCommerce single product pages, alongside the native
+Description, Additional information and Reviews tabs — perfect for shipping details, size guides,
+care instructions or warranty information.
 
-## Create a new plugin
+## Features
 
-> 🔔 **You must create a new repository for each plugin.** FREE → a **public** repo
-> `wppoland/<slug>`. PRO → a separate **private** repo `wppoland/<slug>-pro`.
+- Reusable global tabs shown on every product, managed under WooCommerce → Tabby Tabs.
+- Per-product tabs added from a box on the product editor.
+- Hide specific global tabs on individual products.
+- Safe HTML content, sanitised with `wp_kses_post`.
+- Choose whether custom tabs appear before or after the native WooCommerce tabs.
+- Accessible, dark-mode-aware admin UI that causes no layout shift on the storefront.
 
-1. **"Use this template" → create `wppoland/<slug>`** (public).
-2. **Run the scaffold script** — replaces all tokens and renames `tabby.php → <slug>.php`
-   (cross-platform; review the diff before committing):
-   ```bash
-   python3 scripts/init.py restock Restock "Restock" "Back-in-stock notifications for WooCommerce"
-   #                        ^slug   ^Namespace ^Name    ^short description
-   rm scripts/init.py
-   ```
-   Tokens it replaces (case-sensitive):
+## Installation
 
-   | Token | Replace with | Example |
-   |---|---|---|
-   | `tabby` | lowercase slug = text-domain = i18n domain | `restock` |
-   | `Tabby` | PSR-4 PHP namespace | `Restock` |
-   | `TABBY` (in `define()`) | uppercased namespace | `RESTOCK` |
-   | `tabby_` | option/meta prefix (slug, dashes→underscores) | `restock_` |
-   | `Tabby - Custom Product Tabs for WooCommerce` / `Add custom tabs with your own content to WooCommerce product pages.` / `Add custom tabs with your own content to WooCommerce product pages.` | name + descriptions | … |
-3. `composer install` — resolves `wppoland/storefront-kit ^1.0` from VCS (no symlink). Implement
-   your adapter in `src/`, wire it in `config/services.php` + `config/hooks.php`.
-   *(For local atomic kit+adapter dev, see the kit README's path-override note.)*
-4. Add repo secrets: **`WPORG_SVN_USERNAME`**, **`WPORG_SVN_PASSWORD`**.
-5. Drop wp.org assets in `.wordpress-org/`; fill in `readme.txt`.
-6. Add a `PluginEntry` to `plogins` `packages/registry/src/plugins.config.ts` + a docs folder.
-7. **Release:** bump the header `Version:` + `readme.txt` Stable tag, tag `vX.Y.Z`, push →
-   `_release-free.yml` runs CI, vendors the kit, and auto-deploys to wp.org SVN.
+1. Upload the plugin to `/wp-content/plugins/tabby`, or install it via Plugins → Add New.
+2. Activate it. WooCommerce must be active.
+3. Go to WooCommerce → Tabby Tabs to add global tabs, or open any product to add per-product tabs.
 
-## What's wired
+## Frequently Asked Questions
 
-- **Bootstrap** (`tabby.php`): PHP/WC guards, HPOS + cart-blocks compat, `init` priority 0
-  boot, `do_action('tabby/booted')` fired from `Plugin::boot()` (the hook a PRO companion extends).
-- **Autoload** (`autoload.php`): Composer vendor autoloader + PSR-4 fallback (incl. the kit).
-- **DI**: `src/Plugin.php` singleton + `src/Container.php`; services in `config/services.php`,
-  boot order in `config/hooks.php`, defaults in `config/defaults.php`; `src/Migrator.php`.
-- **CI/Release**: `.github/workflows/{ci,release}.yml` call `wppoland/workflows@v1`.
-- **Quality**: `phpcs.xml.dist` (WPCS), `phpstan.neon.dist` (level 6 + WC stubs), `.distignore`
-  (ships `vendor/` so the kit travels), `.wp-env.json`.
+**Does it require WooCommerce?**
+Yes. Tabby requires an active WooCommerce installation.
 
-## PRO companion (`<slug>-pro`, private)
+**What HTML is allowed in tab content?**
+The same safe subset WordPress allows in post content (`wp_kses_post`): links, lists, headings,
+bold/italic, images, blockquotes and similar. Scripts and unsafe markup are stripped.
 
-Create a separate private repo. It hooks `add_action('<slug>/booted', …)`, bundles the Freemius
-SDK, and releases via `wppoland/workflows/.github/workflows/_release-pro.yml@v1`.
+Built by WPPoland — https://plogins.com
+
+License: GPL-2.0-or-later
