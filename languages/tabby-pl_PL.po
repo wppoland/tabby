@@ -1,0 +1,110 @@
+# Copyright (C) 2026 WPPoland
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Tabby - Custom Product Tabs for WooCommerce 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/tabby\n"
+"Last-Translator: WPPoland <kontakt@wppoland.com>\n"
+"Language-Team: Polish <pl@li.org>\n"
+"Language: pl_PL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-06-14T21:56:54+00:00\n"
+"PO-Revision-Date: 2026-06-15 12:00+0000\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: tabby\n"
+
+#. Plugin Name of the plugin
+#: tabby.php
+msgid "Tabby - Custom Product Tabs for WooCommerce"
+msgstr "Tabby - Własne zakładki produktów dla WooCommerce"
+
+#. Plugin URI of the plugin
+#: tabby.php
+msgid "https://plogins.com/tabby/"
+msgstr "https://plogins.com/tabby/"
+
+#. Description of the plugin
+#: tabby.php
+msgid "Add custom tabs with your own content to WooCommerce product pages."
+msgstr "Dodawaj własne zakładki z własną treścią do stron produktów WooCommerce."
+
+#. Author of the plugin
+#: tabby.php
+msgid "WPPoland"
+msgstr "WPPoland"
+
+#. Author URI of the plugin
+#: tabby.php
+msgid "https://plogins.com/"
+msgstr "https://plogins.com/"
+
+#: src/Admin/Settings.php:57
+msgid "Tabby - Custom Product Tabs"
+msgstr "Tabby - Własne zakładki produktów"
+
+#: src/Admin/Settings.php:58
+msgid "Tabby Tabs"
+msgstr "Zakładki Tabby"
+
+#: src/Admin/Settings.php:102
+msgid "Reusable tabs for every product page"
+msgstr "Zakładki wielokrotnego użytku dla każdej strony produktu"
+
+#: src/Admin/Settings.php:103
+msgid "Define tabs once and they appear on all single product pages, after the native WooCommerce tabs. Basic HTML is allowed in tab content."
+msgstr "Zdefiniuj zakładki raz, a pojawią się na wszystkich stronach pojedynczych produktów, za natywnymi zakładkami WooCommerce. W treści zakładek dozwolony jest podstawowy kod HTML."
+
+#: src/Admin/Settings.php:111
+msgid "General"
+msgstr "Ogólne"
+
+#: src/Admin/Settings.php:115
+msgid "Enable Tabby"
+msgstr "Włącz Tabby"
+
+#: src/Admin/Settings.php:125
+msgid "Render custom tabs on single product pages."
+msgstr "Renderuj własne zakładki na stronach pojedynczych produktów."
+
+#: src/Admin/Settings.php:134
+msgid "Tabs"
+msgstr "Zakładki"
+
+#: src/Admin/Settings.php:135
+msgid "These tabs appear on every product, in the order listed here."
+msgstr "Te zakładki pojawiają się przy każdym produkcie, w kolejności podanej tutaj."
+
+#: src/Admin/Settings.php:156
+msgid "Add tab"
+msgstr "Dodaj zakładkę"
+
+#: src/Admin/Settings.php:179
+msgid "Tab title"
+msgstr "Tytuł zakładki"
+
+#: src/Admin/Settings.php:185
+msgid "e.g. Shipping & Returns"
+msgstr "np. Wysyłka i zwroty"
+
+#: src/Admin/Settings.php:195
+msgid "Enabled"
+msgstr "Włączona"
+
+#: src/Admin/Settings.php:199
+msgid "Remove this tab"
+msgstr "Usuń tę zakładkę"
+
+#: src/Admin/Settings.php:203
+msgid "Tab content"
+msgstr "Treść zakładki"
+
+#: src/Admin/Settings.php:208
+msgid "Basic HTML is allowed (links, lists, bold, etc.)."
+msgstr "Dozwolony jest podstawowy kod HTML (linki, listy, pogrubienie itp.)."
+
+#: tabby.php:48
+msgid "Tabby - Custom Product Tabs for WooCommerce requires WooCommerce to be active."
+msgstr "Tabby - Własne zakładki produktów dla WooCommerce wymaga aktywnej wtyczki WooCommerce."
