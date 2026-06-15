@@ -52,11 +52,17 @@ final class TabRepository
     }
 
     /**
-     * The full, ordered list of enabled global tabs to render on a product page.
+     * The full, ordered list of enabled tabs to render on a product page.
      *
+     * The base plugin contributes its enabled global tabs; add-ons may add,
+     * remove or reorder tabs through the `tabby/resolved_tabs` filter (e.g. to
+     * scope global tabs to specific product categories). The current product is
+     * passed so filters can make product-aware decisions.
+     *
+     * @param \WC_Product|null $product The product being rendered, when known.
      * @return array<int, Tab>
      */
-    public function resolveTabs(): array
+    public function resolveTabs(?\WC_Product $product = null): array
     {
         if (! $this->isEnabled()) {
             return [];
@@ -69,7 +75,24 @@ final class TabRepository
             }
         }
 
-        return $resolved;
+        /**
+         * Filters the tabs resolved for the current product page.
+         *
+         * @param array<int, Tab>  $resolved Enabled tabs, in render order.
+         * @param \WC_Product|null $product  The product being rendered, if known.
+         */
+        $filtered = apply_filters('tabby/resolved_tabs', $resolved, $product);
+
+        if (! is_array($filtered)) {
+            return $resolved;
+        }
+
+        // Defend the value-object contract: drop anything an add-on slipped in
+        // that is not a Tab, so the renderer never sees a foreign shape.
+        return array_values(array_filter(
+            $filtered,
+            static fn ($tab): bool => $tab instanceof Tab,
+        ));
     }
 
     /**

@@ -60,5 +60,14 @@ final class Plugin
                 $service->registerHooks();
             }
         }
+
+        /**
+         * Fires after Tabby has fully booted: container wired and all base hook
+         * subscribers registered. Add-ons (e.g. Tabby Pro) listen here to extend
+         * the shared container and register their own hooks.
+         *
+         * @param Plugin $plugin The booted plugin instance.
+         */
+        do_action('tabby/booted', $this);
     }
 }
