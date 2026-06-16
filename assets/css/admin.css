@@ -8,8 +8,18 @@
  */
 
 .tabby-admin {
-    --tabby-accent: #2271b1;
-    --tabby-accent-hover: #135e96;
+    /*
+     * Accent borrows the storefront's index-divider ochre (assets/css/tabs.css
+     * --tabby-edge #b8791f) for family consistency, but the raw token is only
+     * 3.18:1 on the wp-admin grey surface. These values are computed to clear
+     * WCAG AA against both #fff and #f0f0f1:
+     *   --tabby-accent       #a86d18  4.32:1 / 3.79:1  (UI: borders, ring, icon)
+     *   --tabby-accent-text  #8a5a14  5.91:1 / 5.19:1  (AA text)
+     *   --tabby-accent-hover #6a4410  8.58:1 / 7.53:1
+     */
+    --tabby-accent: #a86d18;
+    --tabby-accent-text: #8a5a14;
+    --tabby-accent-hover: #6a4410;
     --tabby-card-bg: #fff;
     --tabby-card-border: #dcdcde;
     --tabby-card-radius: 10px;
@@ -144,6 +154,31 @@
     padding-block-end: 0.35rem;
 }
 
+/* Inline help under controls. .description (WP-native) clears AA on its own. */
+.tabby-repeater__hint {
+    display: block;
+    margin-block-start: 0.3rem;
+    color: var(--tabby-muted);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    white-space: normal;
+}
+
+.tabby-repeater__toggle .tabby-repeater__hint {
+    /* Sits to the right of the checkbox label, so it should not wrap mid-flow. */
+    flex-basis: 100%;
+    margin-block-start: 0.1rem;
+}
+
+.tabby-repeater__hint code {
+    padding: 0.05em 0.4em;
+    background: color-mix(in srgb, var(--tabby-accent) 8%, #fff);
+    border: 1px solid var(--tabby-card-border);
+    border-radius: 4px;
+    color: var(--tabby-accent-text);
+    font-size: 0.92em;
+}
+
 .tabby-repeater__remove {
     margin-inline-start: auto;
     padding-block-end: 0.2rem;
@@ -167,6 +202,9 @@
 /* Dark-mode pass (admin colour scheme + system preference). */
 @media (prefers-color-scheme: dark) {
     .tabby-admin {
+        /* Storefront dark-edge token #d99a2b: 6.81:1 on #1e1e22 (AA text + UI). */
+        --tabby-accent: #d99a2b;
+        --tabby-accent-text: #d99a2b;
         --tabby-card-bg: #1e1e22;
         --tabby-card-border: #3c434a;
         --tabby-muted: #c3c4c7;
@@ -174,6 +212,10 @@
 
     .tabby-repeater__row {
         background: color-mix(in srgb, var(--tabby-accent) 10%, #1e1e22);
+    }
+
+    .tabby-repeater__hint code {
+        background: color-mix(in srgb, var(--tabby-accent) 14%, #1e1e22);
     }
 }
 
