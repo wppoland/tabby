@@ -13,11 +13,29 @@ defined('ABSPATH') || exit;
  */
 final class Tab
 {
+    /**
+     * A reusable tab defined on the settings screen and shown on every product.
+     */
+    public const SOURCE_GLOBAL = 'global';
+
+    /**
+     * A tab attached to a single product. Reserved for add-ons that store
+     * per-product tabs; the free plugin only produces global tabs.
+     */
+    public const SOURCE_PRODUCT = 'product';
+
+    /**
+     * @param string $source One of self::SOURCE_* describing where the tab
+     *                       originates. Add-ons (e.g. category rules) branch on
+     *                       this to decide whether a tab is subject to their
+     *                       scoping rules.
+     */
     public function __construct(
         public readonly string $id,
         public readonly string $title,
         public readonly string $content,
         public readonly bool $enabled = true,
+        public readonly string $source = self::SOURCE_GLOBAL,
     ) {
     }
 
@@ -39,7 +57,12 @@ final class Tab
         $content = isset($raw['content']) ? wp_kses_post((string) $raw['content']) : '';
         $enabled = ! empty($raw['enabled']);
 
-        return new self($id, $title, $content, $enabled);
+        $source = isset($raw['source']) ? sanitize_key((string) $raw['source']) : self::SOURCE_GLOBAL;
+        if (self::SOURCE_PRODUCT !== $source) {
+            $source = self::SOURCE_GLOBAL;
+        }
+
+        return new self($id, $title, $content, $enabled, $source);
     }
 
     /**
@@ -52,6 +75,7 @@ final class Tab
             'title'   => $this->title,
             'content' => $this->content,
             'enabled' => $this->enabled,
+            'source'  => $this->source,
         ];
     }
 }
