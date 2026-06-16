@@ -120,10 +120,14 @@ final class Settings implements HasHooks
                                             id="tabby_enabled"
                                             name="<?php echo esc_attr(self::OPTION); ?>[enabled]"
                                             value="1"
+                                            aria-describedby="tabby_enabled_help"
                                             <?php checked((bool) ($settings['enabled'] ?? false), true); ?>
                                         />
                                         <?php esc_html_e('Render custom tabs on single product pages.', 'tabby'); ?>
                                     </label>
+                                    <p class="description" id="tabby_enabled_help">
+                                        <?php esc_html_e('Master switch. Turn this off to hide every tab below at once without deleting them — your tabs stay saved and reappear when you turn it back on.', 'tabby'); ?>
+                                    </p>
                                 </td>
                             </tr>
                         </tbody>
@@ -132,7 +136,7 @@ final class Settings implements HasHooks
 
                 <div class="tabby-admin__section">
                     <h2><?php esc_html_e('Tabs', 'tabby'); ?></h2>
-                    <p class="tabby-admin__section-intro"><?php esc_html_e('These tabs appear on every product, in the order listed here.', 'tabby'); ?></p>
+                    <p class="tabby-admin__section-intro"><?php esc_html_e('Each tab shows on every product page, below the native WooCommerce tabs, in the order listed here. A row with no title is dropped when you save, so leave a blank row to discard it.', 'tabby'); ?></p>
 
                     <div class="tabby-repeater" data-tabby-repeater>
                         <div class="tabby-repeater__rows" data-tabby-rows>
@@ -193,6 +197,7 @@ final class Settings implements HasHooks
                         <?php checked($enabled, true); ?>
                     />
                     <?php esc_html_e('Enabled', 'tabby'); ?>
+                    <span class="tabby-repeater__hint"><?php esc_html_e('shows this tab on the storefront; uncheck to hide just this one', 'tabby'); ?></span>
                 </label>
                 <button type="button" class="button-link tabby-repeater__remove" data-tabby-remove>
                     <span aria-hidden="true">&times;</span>
@@ -207,6 +212,15 @@ final class Settings implements HasHooks
                     class="widefat"
                     placeholder="<?php esc_attr_e('Basic HTML is allowed (links, lists, bold, etc.).', 'tabby'); ?>"
                 ><?php echo esc_textarea($content); ?></textarea>
+                <span class="tabby-repeater__hint">
+                    <?php
+                    printf(
+                        /* translators: %s: an example HTML snippet shown as inline guidance. */
+                        esc_html__('Same HTML as a post — e.g. %s. Scripts and unsafe tags are stripped on save.', 'tabby'),
+                        '<code>&lt;strong&gt;Ships in 24h&lt;/strong&gt; &lt;a href="…"&gt;Size guide&lt;/a&gt;</code>'
+                    );
+                    ?>
+                </span>
             </label>
         </div>
         <?php
