@@ -1,25 +1,162 @@
-/**
- * Tabby - front-end styles for custom tab panels.
+/*
+ * Tabby — front-end styling for the custom tab panels it files into the
+ * WooCommerce single-product tab strip.
  *
- * Intentionally minimal: WooCommerce already styles the tab list and panels.
- * These rules only tidy Tabby's own heading + content wrapper and inherit the
- * theme's typography. No layout shift, reduced-motion safe.
+ * World: a tabbed index binder. Each Tabby panel is a divider sheet, and the
+ * one thing that marks it as ours is the colour of its index-tab edge — the
+ * raised spine running down the inside edge of the panel, the way the coloured
+ * lip of a manila divider pokes past the sheet in front of it. The accent is
+ * deliberately an index-divider goldenrod/ochre, NOT a default e-commerce blue
+ * or green: it is the colour of a kraft-card tab and a marbled ledger edge.
+ *
+ * The one earned micro-interaction: when a shopper opens one of Tabby's tabs,
+ * the sheet "files into place" — a single short settle (slide up a few pixels +
+ * fade) as if drawn out from behind the tab in front of it. It fires only on
+ * Tabby's own panels, never on the native Description / Reviews panels, and is
+ * fully disabled under prefers-reduced-motion.
+ *
+ * Restraint everywhere else: typography and panel chrome are inherited from the
+ * theme; we add no borders, no boxes, no shadows beyond the single tab-edge
+ * spine. Zero layout shift — the spine lives in a reserved inline-start gutter,
+ * the settle animates transform/opacity only. Every colour, size and timing is
+ * a themeable --tabby-* token with a theme-inheriting fallback.
  */
 
+/*
+ * Scope: WooCommerce renders each Tabby tab into a panel whose id starts with
+ * "tab-tabby_". We hang our tokens and the index-tab spine on that panel, so a
+ * theme can re-skin Tabby without touching the native panels.
+ */
+.woocommerce-tabs .panel[id^="tab-tabby_"],
+.wc-tabs-wrapper .panel[id^="tab-tabby_"],
+.woocommerce-Tabs-panel[id^="tab-tabby_"] {
+	/* Themeable tokens — override from a child theme to re-skin Tabby. */
+	--tabby-edge: #b8791f;            /* index-divider goldenrod/ochre    */
+	--tabby-edge-2: #c5851a;          /* lighter lip, for the spine sheen */
+	--tabby-edge-ink: #6a4410;        /* burnt-card ink for the tab knock */
+	--tabby-edge-width: 4px;          /* width of the visible index lip   */
+	--tabby-gutter: 1.15rem;          /* reserved space for the spine     */
+	--tabby-settle: 360ms;            /* "file into place" settle length  */
+	--tabby-ease: cubic-bezier(0.16, 0.84, 0.34, 1);
+
+	position: relative;
+	padding-inline-start: var(--tabby-gutter);
+}
+
+/*
+ * The index-tab spine: the coloured edge of the divider sheet. A thin lip
+ * pinned to the inline-start of the panel, with a short raised "tab knock" at
+ * the top — the part that would poke above the sheet in front of it. Drawn with
+ * a gradient so it reads as a folded card edge catching light, not a flat rule.
+ */
+.woocommerce-tabs .panel[id^="tab-tabby_"]::before,
+.wc-tabs-wrapper .panel[id^="tab-tabby_"]::before,
+.woocommerce-Tabs-panel[id^="tab-tabby_"]::before {
+	content: "";
+	position: absolute;
+	inset-block: 0.1em 0.1em;
+	inset-inline-start: 0;
+	inline-size: var(--tabby-edge-width);
+	border-radius: calc(var(--tabby-edge-width) / 2);
+	background: linear-gradient(
+		to bottom,
+		var(--tabby-edge-2) 0,
+		var(--tabby-edge) 14%,
+		var(--tabby-edge) 100%
+	);
+}
+
+/*
+ * The "tab knock": a short, slightly wider nub at the top of the spine — the
+ * lip of the index tab that sits proud of the page edge. It overlaps the
+ * reserved gutter, so it adds no extra width and causes no layout shift.
+ */
+.woocommerce-tabs .panel[id^="tab-tabby_"]::after,
+.wc-tabs-wrapper .panel[id^="tab-tabby_"]::after,
+.woocommerce-Tabs-panel[id^="tab-tabby_"]::after {
+	content: "";
+	position: absolute;
+	inset-block-start: 0.1em;
+	inset-inline-start: 0;
+	inline-size: calc(var(--tabby-edge-width) + 3px);
+	block-size: 2.1em;
+	border-start-start-radius: calc(var(--tabby-edge-width) / 2);
+	border-end-end-radius: 4px;
+	border-start-end-radius: 4px;
+	background: linear-gradient(to right, var(--tabby-edge-2), var(--tabby-edge));
+	box-shadow: 0 1px 2px rgba(106, 68, 16, 0.28);
+}
+
 .tabby-tab__title {
-    margin-block: 0 0.5em;
-    font-size: 1.25em;
-    line-height: 1.3;
+	margin-block: 0 0.5em;
+	font-size: 1.25em;
+	line-height: 1.3;
+	color: inherit;
 }
 
 .tabby-tab__content {
-    max-inline-size: 70ch;
+	max-inline-size: 70ch;
 }
 
 .tabby-tab__content > :first-child {
-    margin-block-start: 0;
+	margin-block-start: 0;
 }
 
 .tabby-tab__content > :last-child {
-    margin-block-end: 0;
+	margin-block-end: 0;
+}
+
+/*
+ * The earned micro-interaction: "file into place". WooCommerce reveals a panel
+ * by switching it from display:none to display:block; an element entering from
+ * display:none restarts its animations, so this settle replays each time the
+ * shopper opens one of Tabby's tabs — and only Tabby's.
+ *
+ * The heading leads (the tab is grabbed first), the sheet follows a beat later,
+ * both rising the last few pixels into the binder as they fade in.
+ */
+@media (prefers-reduced-motion: no-preference) {
+	.woocommerce-tabs .panel[id^="tab-tabby_"] .tabby-tab__title,
+	.wc-tabs-wrapper .panel[id^="tab-tabby_"] .tabby-tab__title,
+	.woocommerce-Tabs-panel[id^="tab-tabby_"] .tabby-tab__title {
+		animation: tabby-file var(--tabby-settle) var(--tabby-ease) both;
+	}
+
+	.woocommerce-tabs .panel[id^="tab-tabby_"] .tabby-tab__content,
+	.wc-tabs-wrapper .panel[id^="tab-tabby_"] .tabby-tab__content,
+	.woocommerce-Tabs-panel[id^="tab-tabby_"] .tabby-tab__content {
+		animation: tabby-file var(--tabby-settle) var(--tabby-ease) 60ms both;
+	}
+}
+
+@keyframes tabby-file {
+	from {
+		opacity: 0;
+		transform: translateY(6px);
+	}
+
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+/*
+ * Dark scheme: the goldenrod lip warms and brightens so it still reads as a lit
+ * card edge against a dark panel, and the tab-knock shadow softens.
+ */
+@media (prefers-color-scheme: dark) {
+	.woocommerce-tabs .panel[id^="tab-tabby_"],
+	.wc-tabs-wrapper .panel[id^="tab-tabby_"],
+	.woocommerce-Tabs-panel[id^="tab-tabby_"] {
+		--tabby-edge: #d99a2b;
+		--tabby-edge-2: #f0b54a;
+		--tabby-edge-ink: #f0b54a;
+	}
+
+	.woocommerce-tabs .panel[id^="tab-tabby_"]::after,
+	.wc-tabs-wrapper .panel[id^="tab-tabby_"]::after,
+	.woocommerce-Tabs-panel[id^="tab-tabby_"]::after {
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+	}
 }
