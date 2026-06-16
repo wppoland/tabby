@@ -63,7 +63,7 @@ final class TabsRenderer implements HasHooks
      */
     public function addTabs(array $tabs): array
     {
-        $resolved = $this->tabs->resolveTabs();
+        $resolved = $this->tabs->resolveTabs($this->currentProduct());
         if ([] === $resolved) {
             return $tabs;
         }
@@ -95,6 +95,19 @@ final class TabsRenderer implements HasHooks
         }
 
         return $tabs;
+    }
+
+    /**
+     * The product currently being rendered, when WooCommerce has set it.
+     *
+     * `woocommerce_product_tabs` fires inside the single-product template, where
+     * the global `$product` is the product on screen.
+     */
+    private function currentProduct(): ?\WC_Product
+    {
+        $product = $GLOBALS['product'] ?? null;
+
+        return $product instanceof \WC_Product ? $product : null;
     }
 
     /**
