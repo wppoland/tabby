@@ -49,6 +49,14 @@ The same safe subset WordPress allows in post content (`wp_kses_post`): links, l
 
 On the single product page tab list, after the native WooCommerce tabs (Description, Additional information, Reviews).
 
+= Can I reuse the same tab on many products? =
+
+Yes. Create reusable tabs once under WooCommerce → Tabby, then attach them per product.
+
+= Is tab HTML safe? =
+
+Yes. Content is sanitised with `wp_kses_post` on save and on output; scripts are stripped.
+
 == Screenshots ==
 
 1. The Tabby settings screen for managing reusable tabs.
