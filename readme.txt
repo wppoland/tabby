@@ -15,17 +15,19 @@ Add reusable custom tabs with your own content to every WooCommerce product page
 
 Tabby lets you add your own reusable tabs to the WooCommerce single product page, alongside the native Description, Additional information and Reviews tabs.
 
-Define your tabs once under **WooCommerce → Tabby Tabs** and they appear on every product. Perfect for shared content like shipping & returns, size guides, care instructions or warranty information.
+Define your tabs once under **WooCommerce → Tabby Tabs** and they show up on every product. It suits content you'd otherwise paste into each product by hand: shipping and returns, size guides, care instructions, warranty notes.
 
-Each tab has a title and a content area that accepts safe, limited HTML (links, lists, bold, headings and more) via WordPress's `wp_kses_post`. Your custom tabs render after the native WooCommerce tabs.
+Each tab is a title plus a content box that accepts the same limited HTML WordPress allows in posts (links, lists, bold, headings) via `wp_kses_post`. Your tabs render after the native WooCommerce tabs, and you can toggle each one on or off without deleting it.
 
-= Highlights =
+The code lives at https://github.com/wppoland/tabby if you want to read it, report a bug or suggest a tab feature.
 
-* Reusable tabs rendered on every product page.
-* Safe HTML content (sanitised with `wp_kses_post`).
-* Renders through the standard `woocommerce_product_tabs` filter with sensible priorities, so it plays nicely with themes and other plugins.
-* Accessible, dark-mode-aware admin UI. No layout shift on the storefront.
-* Graceful empty/disabled states — renders nothing rather than anything broken.
+= What it does =
+
+* Adds your reusable tabs to every single product page, after Description, Additional information and Reviews.
+* Stores tab content as `wp_kses_post`-sanitised HTML, both on save and again on output.
+* Hooks the standard `woocommerce_product_tabs` filter at a late priority, so native and third-party tabs keep their place.
+* Admin screen follows core WordPress styling and respects the editor's light/dark preference.
+* A disabled tab, or one with no content, simply isn't rendered.
 
 == Installation ==
 
