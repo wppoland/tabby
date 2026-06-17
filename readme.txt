@@ -62,6 +62,10 @@ Yes. Content is sanitised with `wp_kses_post` on save and on output; scripts are
 1. The Tabby settings screen for managing reusable tabs.
 2. Custom tabs rendered on the single product page.
 
+== External Services ==
+
+Tabby does not connect to any external services. It makes no remote API calls, loads no fonts, scripts or styles from a third party, and sends no data off your site. Your tab definitions are stored locally in a single WordPress option (`tabby_settings`), with a version marker in `tabby_db_version`, and both are removed on uninstall. The admin and front-end CSS and JavaScript it loads are bundled with the plugin and served from your own site.
+
 == Changelog ==
 
 = 0.1.0 =
