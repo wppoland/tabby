@@ -21,6 +21,15 @@ Each tab is a title plus a content box that accepts the same limited HTML WordPr
 
 The code lives at https://github.com/wppoland/tabby if you want to read it, report a bug or suggest a tab feature.
 
+= Documentation and links =
+
+* **Documentation** - https://plogins.com/tabby/docs/
+* **Plugin page** - https://plogins.com/tabby/
+* **Source code** - https://github.com/wppoland/tabby
+* **Bug reports and feature requests** - https://github.com/wppoland/tabby/issues
+* **Discussions and questions** - https://github.com/wppoland/tabby/discussions
+
+
 = What it does =
 
 * Adds your reusable tabs to every single product page, after Description, Additional information and Reviews.
