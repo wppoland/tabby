@@ -1,5 +1,5 @@
 === Tabby - Custom Product Tabs for WooCommerce ===
-Contributors: wppoland
+Contributors: motylanogha
 Tags: woocommerce, product tabs, custom tabs, product page, tabs
 Requires at least: 6.5
 Tested up to: 7.0
