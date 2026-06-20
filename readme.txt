@@ -4,7 +4,7 @@ Tags: woocommerce, product tabs, custom tabs, product page, tabs
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 Requires Plugins: woocommerce
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -76,6 +76,9 @@ Yes. Content is sanitised with `wp_kses_post` on save and on output; scripts are
 Tabby does not connect to any external services. It makes no remote API calls, loads no fonts, scripts or styles from a third party, and sends no data off your site. Your tab definitions are stored locally in a single WordPress option (`tabby_settings`), with a version marker in `tabby_db_version`, and both are removed on uninstall. The admin and front-end CSS and JavaScript it loads are bundled with the plugin and served from your own site.
 
 == Changelog ==
+
+= 0.1.1 =
+* `tabby/use_rich_tab_content` and `tabby/tab_panel_html` filters so premium add-ons can run shortcodes and blocks in tab bodies.
 
 = 0.1.0 =
 * Initial release: reusable custom product tabs with safe HTML content, managed from a WooCommerce-submenu settings screen.

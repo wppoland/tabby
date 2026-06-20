@@ -134,9 +134,36 @@ final class TabsRenderer implements HasHooks
             return;
         }
 
+        $html = $this->formatPanelHtml($resolved->content, $resolved, $this->currentProduct());
+
+        if ('' === trim(wp_strip_all_tags($html))) {
+            return;
+        }
+
         printf(
             '<div class="tabby-tab__content">%s</div>',
-            wp_kses_post(wpautop($resolved->content)),
+            $html, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Sanitised in formatPanelHtml or via the_content when PRO is active.
         );
+    }
+
+    /**
+     * Turn stored tab body markup into storefront HTML.
+     *
+     * @param string           $content Raw tab body markup.
+     * @param Tab              $tab     The tab being rendered.
+     * @param \WC_Product|null $product The product being viewed.
+     */
+    private function formatPanelHtml(string $content, Tab $tab, ?\WC_Product $product): string
+    {
+        // Filter: tabby/use_rich_tab_content — premium add-ons enable shortcode/block processing.
+        if ((bool) apply_filters('tabby/use_rich_tab_content', false, $tab, $product)) {
+            // Filter: tabby/tab_panel_html — rich tab panel HTML after the_content.
+            return (string) apply_filters('tabby/tab_panel_html', apply_filters('the_content', $content), $tab, $product);
+        }
+
+        $html = wp_kses_post(wpautop($content));
+
+        // Filter: tabby/tab_panel_html — plain sanitised tab panel HTML.
+        return (string) apply_filters('tabby/tab_panel_html', $html, $tab, $product);
     }
 }
