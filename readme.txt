@@ -9,7 +9,7 @@ Requires Plugins: woocommerce
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Add reusable custom tabs with your own content to every WooCommerce product page, alongside the native tabs — with safe HTML.
+Add reusable custom tabs with your own content to every WooCommerce product page, alongside the native tabs, with safe HTML.
 
 == Description ==
 
