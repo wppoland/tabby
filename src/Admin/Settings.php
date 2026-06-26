@@ -126,7 +126,7 @@ final class Settings implements HasHooks
                                         <?php esc_html_e('Render custom tabs on single product pages.', 'tabby'); ?>
                                     </label>
                                     <p class="description" id="tabby_enabled_help">
-                                        <?php esc_html_e('Master switch. Turn this off to hide every tab below at once without deleting them — your tabs stay saved and reappear when you turn it back on.', 'tabby'); ?>
+                                        <?php esc_html_e('Master switch. Turn this off to hide every tab below at once without deleting them, your tabs stay saved and reappear when you turn it back on.', 'tabby'); ?>
                                     </p>
                                 </td>
                             </tr>
@@ -216,7 +216,7 @@ final class Settings implements HasHooks
                     <?php
                     printf(
                         /* translators: %s: an example HTML snippet shown as inline guidance. */
-                        esc_html__('Same HTML as a post — e.g. %s. Scripts and unsafe tags are stripped on save.', 'tabby'),
+                        esc_html__('Same HTML as a post, e.g. %s. Scripts and unsafe tags are stripped on save.', 'tabby'),
                         '<code>&lt;strong&gt;Ships in 24h&lt;/strong&gt; &lt;a href="…"&gt;Size guide&lt;/a&gt;</code>'
                     );
                     ?>

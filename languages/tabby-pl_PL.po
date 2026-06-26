@@ -79,7 +79,7 @@ msgstr "Renderuj własne zakładki na stronach pojedynczych produktów."
 #: src/Admin/Settings.php:129
 msgid ""
 "Master switch. Turn this off to hide every tab below at once without "
-"deleting them — your tabs stay saved and reappear when you turn it back on."
+"deleting them, your tabs stay saved and reappear when you turn it back on."
 msgstr ""
 
 #: src/Admin/Settings.php:138
@@ -129,7 +129,7 @@ msgstr "Dozwolony jest podstawowy kod HTML (linki, listy, pogrubienie itp.)."
 #: src/Admin/Settings.php:219
 #, php-format
 msgid ""
-"Same HTML as a post — e.g. %s. Scripts and unsafe tags are stripped on save."
+"Same HTML as a post, e.g. %s. Scripts and unsafe tags are stripped on save."
 msgstr ""
 
 #: tabby.php:48

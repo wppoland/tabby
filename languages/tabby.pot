@@ -68,7 +68,7 @@ msgid "Render custom tabs on single product pages."
 msgstr ""
 
 #: src/Admin/Settings.php:129
-msgid "Master switch. Turn this off to hide every tab below at once without deleting them — your tabs stay saved and reappear when you turn it back on."
+msgid "Master switch. Turn this off to hide every tab below at once without deleting them, your tabs stay saved and reappear when you turn it back on."
 msgstr ""
 
 #: src/Admin/Settings.php:138
@@ -114,7 +114,7 @@ msgstr ""
 #. translators: %s: an example HTML snippet shown as inline guidance.
 #: src/Admin/Settings.php:219
 #, php-format
-msgid "Same HTML as a post — e.g. %s. Scripts and unsafe tags are stripped on save."
+msgid "Same HTML as a post, e.g. %s. Scripts and unsafe tags are stripped on save."
 msgstr ""
 
 #: tabby.php:48
