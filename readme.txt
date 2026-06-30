@@ -1,10 +1,10 @@
-=== Tabby - Custom Product Tabs for WooCommerce ===
+=== Plogins Tabby for WooCommerce ===
 Contributors: motylanogha
 Tags: woocommerce, product tabs, custom tabs, product page, tabs
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 8.1
-Stable tag: 0.1.1
+Stable tag: 0.1.2
 Requires Plugins: woocommerce
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -19,15 +19,14 @@ Define your tabs once under **WooCommerce → Tabby Tabs** and they show up on e
 
 Each tab is a title plus a content box that accepts the same limited HTML WordPress allows in posts (links, lists, bold, headings) via `wp_kses_post`. Your tabs render after the native WooCommerce tabs, and you can toggle each one on or off without deleting it.
 
-The code lives at https://github.com/wppoland/tabby if you want to read it, report a bug or suggest a tab feature.
+The code lives at https://github.com/wppoland/plogins-tabby if you want to read it, report a bug or suggest a tab feature.
 
 = Documentation and links =
 
-* **Documentation** - https://plogins.com/tabby/docs/
-* **Plugin page** - https://plogins.com/tabby/
-* **Source code** - https://github.com/wppoland/tabby
-* **Bug reports and feature requests** - https://github.com/wppoland/tabby/issues
-* **Discussions and questions** - https://github.com/wppoland/tabby/discussions
+* **Documentation** - https://plogins.com/plogins-tabby/docs/
+* **Plugin page** - https://plogins.com/plogins-tabby/
+* **Source code** - https://github.com/wppoland/plogins-tabby
+* **Bug reports and feature requests** - https://github.com/wppoland/plogins-tabby/issues
 
 
 = What it does =
@@ -76,6 +75,9 @@ Yes. Content is sanitised with `wp_kses_post` on save and on output; scripts are
 Tabby does not connect to any external services. It makes no remote API calls, loads no fonts, scripts or styles from a third party, and sends no data off your site. Your tab definitions are stored locally in a single WordPress option (`tabby_settings`), with a version marker in `tabby_db_version`, and both are removed on uninstall. The admin and front-end CSS and JavaScript it loads are bundled with the plugin and served from your own site.
 
 == Changelog ==
+
+= 0.1.2 =
+* Renamed to Plogins Tabby for WooCommerce for a more distinctive plugin name.
 
 = 0.1.1 =
 * `tabby/use_rich_tab_content` and `tabby/tab_panel_html` filters so premium add-ons can run shortcodes and blocks in tab bodies.

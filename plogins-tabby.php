@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:       Tabby - Custom Product Tabs for WooCommerce
- * Plugin URI:        https://plogins.com/tabby/
+ * Plugin Name:       Plogins Tabby for WooCommerce
+ * Plugin URI:        https://plogins.com/plogins-tabby/
  * Description:        Add custom tabs with your own content to WooCommerce product pages.
- * Version:           0.1.1
+ * Version:           0.1.2
  * Requires at least: 6.5
  * Tested up to:      7.0
  * Requires PHP:      8.1
@@ -12,7 +12,7 @@
  * Author URI:        https://wppoland.com
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       tabby
+ * Text Domain:       plogins-tabby
  * Domain Path:       /languages
  * WC requires at least: 8.0
  *
@@ -25,7 +25,7 @@ namespace Tabby;
 
 defined('ABSPATH') || exit;
 
-const VERSION     = '0.1.1';
+const VERSION     = '0.1.2';
 const PLUGIN_FILE = __FILE__;
 
 define('TABBY_DIR', plugin_dir_path(__FILE__));
@@ -45,7 +45,7 @@ add_action('plugins_loaded', static function (): void {
     if (! class_exists('WooCommerce')) {
         add_action('admin_notices', static function (): void {
             echo '<div class="notice notice-error"><p>';
-            echo esc_html__('Tabby - Custom Product Tabs for WooCommerce requires WooCommerce to be active.', 'tabby');
+            echo esc_html__('Tabby - Custom Product Tabs for WooCommerce requires WooCommerce to be active.', 'plogins-tabby');
             echo '</p></div>';
         });
         return;

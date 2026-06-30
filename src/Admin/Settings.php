@@ -54,8 +54,8 @@ final class Settings implements HasHooks
     {
         add_submenu_page(
             'woocommerce',
-            __('Tabby - Custom Product Tabs', 'tabby'),
-            __('Tabby Tabs', 'tabby'),
+            __('Tabby - Custom Product Tabs', 'plogins-tabby'),
+            __('Tabby Tabs', 'plogins-tabby'),
             'manage_woocommerce',
             self::PAGE,
             [$this, 'renderPage'],
@@ -99,8 +99,8 @@ final class Settings implements HasHooks
                     </svg>
                 </span>
                 <div class="tabby-admin__intro-text">
-                    <h2><?php esc_html_e('Reusable tabs for every product page', 'tabby'); ?></h2>
-                    <p><?php esc_html_e('Define tabs once and they appear on all single product pages, after the native WooCommerce tabs. Basic HTML is allowed in tab content.', 'tabby'); ?></p>
+                    <h2><?php esc_html_e('Reusable tabs for every product page', 'plogins-tabby'); ?></h2>
+                    <p><?php esc_html_e('Define tabs once and they appear on all single product pages, after the native WooCommerce tabs. Basic HTML is allowed in tab content.', 'plogins-tabby'); ?></p>
                 </div>
             </div>
 
@@ -108,11 +108,11 @@ final class Settings implements HasHooks
                 <?php settings_fields(self::PAGE); ?>
 
                 <div class="tabby-admin__section">
-                    <h2><?php esc_html_e('General', 'tabby'); ?></h2>
+                    <h2><?php esc_html_e('General', 'plogins-tabby'); ?></h2>
                     <table class="form-table" role="presentation">
                         <tbody>
                             <tr>
-                                <th scope="row"><?php esc_html_e('Enable Tabby', 'tabby'); ?></th>
+                                <th scope="row"><?php esc_html_e('Enable Tabby', 'plogins-tabby'); ?></th>
                                 <td>
                                     <label for="tabby_enabled">
                                         <input
@@ -123,10 +123,10 @@ final class Settings implements HasHooks
                                             aria-describedby="tabby_enabled_help"
                                             <?php checked((bool) ($settings['enabled'] ?? false), true); ?>
                                         />
-                                        <?php esc_html_e('Render custom tabs on single product pages.', 'tabby'); ?>
+                                        <?php esc_html_e('Render custom tabs on single product pages.', 'plogins-tabby'); ?>
                                     </label>
                                     <p class="description" id="tabby_enabled_help">
-                                        <?php esc_html_e('Master switch. Turn this off to hide every tab below at once without deleting them, your tabs stay saved and reappear when you turn it back on.', 'tabby'); ?>
+                                        <?php esc_html_e('Master switch. Turn this off to hide every tab below at once without deleting them, your tabs stay saved and reappear when you turn it back on.', 'plogins-tabby'); ?>
                                     </p>
                                 </td>
                             </tr>
@@ -135,8 +135,8 @@ final class Settings implements HasHooks
                 </div>
 
                 <div class="tabby-admin__section">
-                    <h2><?php esc_html_e('Tabs', 'tabby'); ?></h2>
-                    <p class="tabby-admin__section-intro"><?php esc_html_e('Each tab shows on every product page, below the native WooCommerce tabs, in the order listed here. A row with no title is dropped when you save, so leave a blank row to discard it.', 'tabby'); ?></p>
+                    <h2><?php esc_html_e('Tabs', 'plogins-tabby'); ?></h2>
+                    <p class="tabby-admin__section-intro"><?php esc_html_e('Each tab shows on every product page, below the native WooCommerce tabs, in the order listed here. A row with no title is dropped when you save, so leave a blank row to discard it.', 'plogins-tabby'); ?></p>
 
                     <div class="tabby-repeater" data-tabby-repeater>
                         <div class="tabby-repeater__rows" data-tabby-rows>
@@ -157,7 +157,7 @@ final class Settings implements HasHooks
 
                         <p>
                             <button type="button" class="button button-secondary" data-tabby-add>
-                                <?php esc_html_e('Add tab', 'tabby'); ?>
+                                <?php esc_html_e('Add tab', 'plogins-tabby'); ?>
                             </button>
                         </p>
                     </div>
@@ -180,13 +180,13 @@ final class Settings implements HasHooks
         <div class="tabby-repeater__row" data-tabby-row>
             <div class="tabby-repeater__head">
                 <label class="tabby-repeater__field tabby-repeater__field--title">
-                    <span class="tabby-repeater__label"><?php esc_html_e('Tab title', 'tabby'); ?></span>
+                    <span class="tabby-repeater__label"><?php esc_html_e('Tab title', 'plogins-tabby'); ?></span>
                     <input
                         type="text"
                         name="<?php echo esc_attr($base . '[title]'); ?>"
                         value="<?php echo esc_attr($title); ?>"
                         class="widefat"
-                        placeholder="<?php esc_attr_e('e.g. Shipping & Returns', 'tabby'); ?>"
+                        placeholder="<?php esc_attr_e('e.g. Shipping & Returns', 'plogins-tabby'); ?>"
                     />
                 </label>
                 <label class="tabby-repeater__toggle">
@@ -196,27 +196,27 @@ final class Settings implements HasHooks
                         value="1"
                         <?php checked($enabled, true); ?>
                     />
-                    <?php esc_html_e('Enabled', 'tabby'); ?>
-                    <span class="tabby-repeater__hint"><?php esc_html_e('shows this tab on the storefront; uncheck to hide just this one', 'tabby'); ?></span>
+                    <?php esc_html_e('Enabled', 'plogins-tabby'); ?>
+                    <span class="tabby-repeater__hint"><?php esc_html_e('shows this tab on the storefront; uncheck to hide just this one', 'plogins-tabby'); ?></span>
                 </label>
                 <button type="button" class="button-link tabby-repeater__remove" data-tabby-remove>
                     <span aria-hidden="true">&times;</span>
-                    <span class="screen-reader-text"><?php esc_html_e('Remove this tab', 'tabby'); ?></span>
+                    <span class="screen-reader-text"><?php esc_html_e('Remove this tab', 'plogins-tabby'); ?></span>
                 </button>
             </div>
             <label class="tabby-repeater__field">
-                <span class="tabby-repeater__label"><?php esc_html_e('Tab content', 'tabby'); ?></span>
+                <span class="tabby-repeater__label"><?php esc_html_e('Tab content', 'plogins-tabby'); ?></span>
                 <textarea
                     name="<?php echo esc_attr($base . '[content]'); ?>"
                     rows="4"
                     class="widefat"
-                    placeholder="<?php esc_attr_e('Basic HTML is allowed (links, lists, bold, etc.).', 'tabby'); ?>"
+                    placeholder="<?php esc_attr_e('Basic HTML is allowed (links, lists, bold, etc.).', 'plogins-tabby'); ?>"
                 ><?php echo esc_textarea($content); ?></textarea>
                 <span class="tabby-repeater__hint">
                     <?php
                     printf(
                         /* translators: %s: an example HTML snippet shown as inline guidance. */
-                        esc_html__('Same HTML as a post, e.g. %s. Scripts and unsafe tags are stripped on save.', 'tabby'),
+                        esc_html__('Same HTML as a post, e.g. %s. Scripts and unsafe tags are stripped on save.', 'plogins-tabby'),
                         '<code>&lt;strong&gt;Ships in 24h&lt;/strong&gt; &lt;a href="…"&gt;Size guide&lt;/a&gt;</code>'
                     );
                     ?>
