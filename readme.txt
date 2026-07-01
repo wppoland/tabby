@@ -65,6 +65,11 @@ Yes. Create reusable tabs once under WooCommerce → Tabby, then attach them per
 
 Yes. Content is sanitised with `wp_kses_post` on save and on output; scripts are stripped.
 
+
+= Does this plugin work on WordPress Multisite? =
+
+Yes. This plugin is compatible with WordPress Multisite. Network activate it or activate it on individual sites; each site keeps its own settings and data.
+
 == Screenshots ==
 
 1. The Tabby settings screen for managing reusable tabs.
